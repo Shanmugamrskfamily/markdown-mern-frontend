@@ -22,7 +22,7 @@ function MarkdownList({ markdownList, setMarkdownList }) {
 
   const handleSaveEdit = (id) => {
     axios
-      .put(`https://markdown-connecting.onrender.com/api/markdown/update-markdown/${id}`, { content: editedMarkdown })
+      .put(`https://markdown-mern-backend.onrender.com/api/markdown/update-markdown/${id}`, { content: editedMarkdown })
       .then(() => {
         // Update the local state with the edited content
         setMarkdownList((prevList) =>

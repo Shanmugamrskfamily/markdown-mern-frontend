@@ -15,7 +15,7 @@ function Chart() {
 
   const fetchData = () => {
     axios
-      .get('https://markdown-connecting.onrender.com/api/markdown/fetch-data')
+      .get('https://markdown-mern-backend.onrender.com/api/markdown/fetch-data')
       .then((response) => {
         setData({
           totalMarkdowns: response.data.totalMarkdowns,

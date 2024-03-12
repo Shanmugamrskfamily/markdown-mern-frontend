@@ -68,10 +68,10 @@ function Register() {
         isMobileValid
       ) {
       
-       const response = await axios.post('https://markdown-connecting.onrender.com/api/auth/register', formData)
+       const response = await axios.post('https://markdown-mern-backend.onrender.com/api/auth/register', formData)
        .catch(error => {
         if (error.response) {
-          console.log(error.response.data); // Log the error response
+          console.log(error.response.data); 
         }
     
       })
@@ -82,7 +82,7 @@ function Register() {
         setTimeout(() => {
           navigate('/login');
         },2000 );
-        showToastMessage('Registration Successful', 'success');
+        showToastMessage('Registration Successful.. check your mail for Account Activation!', 'success');
       } else {
         showToastMessage('Please fill in all required fields', 'error');
       }

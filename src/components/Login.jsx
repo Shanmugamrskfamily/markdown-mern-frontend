@@ -8,13 +8,13 @@ import 'react-toastify/dist/ReactToastify.css';
 function Login({ setIsLoggedIn }) {
   const navigate = useNavigate();
   const initialFormData = {
-    username: '',
+    email: '',
     password: '',
   };
 
   const [formData, setFormData] = useState(initialFormData);
   const [isPasswordValid, setIsPasswordValid] = useState(true);
-  const [isUsernameValid, setIsUsernameValid] = useState(true);
+  const [isEmailValid, setIsEmailValid] = useState(true);
 
   const showToastMessage = (message, type) => {
     toast[type](message, {
@@ -22,10 +22,10 @@ function Login({ setIsLoggedIn }) {
     });
   };
 
-  const handleUsernameChange = (e) => {
+  const handleEmailChange = (e) => {
     const value = e.target.value;
-    setFormData({ ...formData, username: value });
-    setIsUsernameValid(value.length !== 0);
+    setFormData({ ...formData, email: value });
+    setIsEmailValid(value.length !== 0);
     
   };
 
@@ -39,29 +39,31 @@ function Login({ setIsLoggedIn }) {
     e.preventDefault();
     try {
       if(
-        formData.username.trim() !== '' &&
+        formData.email.trim() !== '' &&
         formData.password.trim() !== '' &&
-        isUsernameValid &&
+        isEmailValid &&
         isPasswordValid 
       ) {
         const response = await axios.post(
-          'https://markdown-connecting.onrender.com/api/auth/login',
+          'https://markdown-mern-backend.onrender.com/api/auth/login',
           formData
         );
+        
+        localStorage.setItem('token',response.data.token);
 
         setFormData(initialFormData);
-
         setTimeout(() => {
           setIsLoggedIn(true);
           navigate('/create');
         }, 2000);
         showToastMessage('Login successful', 'success');
+
       }else {
         showToastMessage('Please fill in all required fields', 'error');
       }
      } catch (error) {
       console.error('Error logging in:', error);
-      showToastMessage('Invalid username or password', 'error');
+      showToastMessage('Invalid Email or password', 'error');
     }
   };
 
@@ -71,17 +73,17 @@ function Login({ setIsLoggedIn }) {
       <h2><span style={{color:'red'}}>L</span> <span style={{color:'slateblue'}}>O</span> <span style={{color:'green'}}>G</span> <span style={{color:'orange'}}>I</span> <span style={{color:'purple'}}>N</span> </h2>
      <hr /> <form onSubmit={handleSubmit}>
         <div className="form-group">
-          <label htmlFor="username" style={{fontWeight:'bold'}}>Username:</label>
+          <label htmlFor="email" style={{fontWeight:'bold'}}>Email:</label>
           <input
-            type="text"
+            type="email"
             className="form-control"
-            id="username"
-            name="username"
-            value={formData.username}
-            onChange={handleUsernameChange}
+            id="email"
+            name="email"
+            value={formData.email}
+            onChange={handleEmailChange}
           />
         </div>
-        {!isUsernameValid && <div className="error">Please enter a username.</div>}
+        {!isEmailValid && <div className="error">Please enter valid Email.</div>}
         <div className="form-group">
           <label htmlFor="password" style={{fontWeight:'bold'}}>Password</label>
           <input
@@ -110,10 +112,3 @@ function Login({ setIsLoggedIn }) {
 }
 
 export default Login;
-
-
-
-
-
-
-
