@@ -14,6 +14,8 @@ import ActivateAccount from './components/ActivateAccount';
 import ForgotPassword from './components/ForgotPassword';
 import ResetPassword from './components/ResetPassword';
 import NotFound from './components/NotFound';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 
@@ -39,6 +41,7 @@ function App() {
   return (
     <div className="App">
       <Router>
+        <ToastContainer/>
         <Navbar isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
         <Routes>
           <Route path="/" element={<Home />} />
