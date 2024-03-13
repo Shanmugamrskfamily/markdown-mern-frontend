@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import './ForgotPassword.css'
+import { toast } from 'react-toastify';
 
 function ForgotPassword() {
   const [email, setEmail] = useState('');
@@ -18,8 +19,10 @@ function ForgotPassword() {
       setEmail('');
       setError('');
       setIsLoading(false);
+      toast.success('Password Reset Mail Sent... check your mail box');
     } catch (error) {
       setError('Password reset request failed. Please try again.');
+      toast.error(`${error.message}`);
       setIsLoading(false);
     }
   };
