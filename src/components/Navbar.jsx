@@ -12,7 +12,7 @@ function Navbar({ isLoggedIn, setIsLoggedIn }) {
 
   const logout = () => {
     setIsLoggedIn(false);
-
+    localStorage.removeItem('token');
     // After logging out, navigate the user to the home page 
     navigate('/');
   };
@@ -25,13 +25,13 @@ function Navbar({ isLoggedIn, setIsLoggedIn }) {
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light nav-container">
       <div>
-        <Link className="navbar-brand" to="/"> <span style={{color:"red"}}>M</span> <span style={{color:"red"}}>A</span> <span style={{color:"red"}}>R</span> <span style={{color:"red"}}>K</span>  <span style={{color:"red"}}>D</span> <span style={{color:"red"}}>O</span> <span style={{color:"red"}}>W</span> <span style={{color:"red"}}>N</span> App</Link>
+        <Link className="navbar-brand" to="/"><img src="/images/LongLogo.png" style={{width:'200px',height:'150'}} alt="" /></Link>
       </div>
       <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span className="navbar-toggler-icon"></span>
       </button>
       <div className="collapse navbar-collapse" id="navbarNav">
-        <ul className="navbar-nav ml-auto">
+        <ul className="navbar-nav ms-auto">
           {isLoggedIn ? (
             <>
               <li className="nav-item">
@@ -50,17 +50,15 @@ function Navbar({ isLoggedIn, setIsLoggedIn }) {
           ) : (
             <>
               <li className="nav-item">
-                <Link className="nav-link" to="/register">Register</Link>
+                <Link className="nav-link" to="/register">Register <HowToRegIcon color="success" fontSize="large" className="nav-links" /></Link>
               </li>
-              <HowToRegIcon color="success" fontSize="large" className="nav-links" />
+              
               <li className="nav-item">
-                <Link className="nav-link" to="/login">Login</Link>
+                <Link className="nav-link" to="/login">Login <LoginIcon color="success" fontSize="large" className="nav-links" /></Link>
               </li>
-              <LoginIcon color="success" fontSize="large" className="nav-links" />
               <li className="nav-item">
-                <Link className="nav-link" to="/">Home</Link>
+                <Link className="nav-link" to="/">Home <HomeIcon color="primary" fontSize="large" className="nav-links" /></Link>
               </li>
-              <HomeIcon color="primary" fontSize="large" className="nav-links" />
             </>
           )}
         </ul>

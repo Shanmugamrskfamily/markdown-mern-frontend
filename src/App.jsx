@@ -12,6 +12,8 @@ import Chart from './components/Chart';
 import './chartConfig'
 import ActivateAccount from './components/ActivateAccount';
 import ForgotPassword from './components/ForgotPassword';
+import ResetPassword from './components/ResetPassword';
+
 
 
 
@@ -48,7 +50,8 @@ function App() {
             element={<MarkdownList markdownList={markdownList} setMarkdownList={setMarkdownList} />}
           />
           <Route path="/register" element={<Register/>} />
-          <Route path="/activate/:token" element={<ActivateAccount/>}/>
+          <Route path="/activate"  element={<ActivateAccount/>}/>
+          <Route path="/reset-password"  element={<ResetPassword/>}/>
           <Route path="/login" element={<Login setIsLoggedIn={setIsLoggedIn} />} />
           <Route path="/forgot-password" element={<ForgotPassword/>} />
           <Route path="/chart" element={<Chart/>}></Route>

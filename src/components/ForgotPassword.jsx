@@ -21,8 +21,8 @@ function ForgotPassword() {
   };
 
   return (
-    <div className="container_f" style={{ width: 300 }}>
-      <h2>Forgot Password</h2>
+    <div className="container_f" style={{ width: 300,textAlign:'center' }}>
+      <h2>F<span style={{color:'slateblue'}}>O</span><span style={{color:'green'}}>R</span><span style={{color:'orange'}}>G</span><span style={{color:'purple'}}>O</span><span style={{color:'blue'}}>T</span> P<span style={{color:'slateblue'}}>A</span><span style={{color:'green'}}>S</span><span style={{color:'orange'}}>S</span><span style={{color:'purple'}}>W</span><span style={{color:'blue'}}>O</span><span style={{color:'slateblue'}}>R</span><span style={{color:'green'}}>D</span></h2>
       <hr />
       {successMessage && <div className="success">{successMessage}</div>}
       {error && <div className="error">{error}</div>}

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -100,11 +100,16 @@ function Login({ setIsLoggedIn }) {
           <div className="error">Please Enter password.</div>
         )}
 
-        <div>
+        <div style={{textAlign:'center'}}>
           <button type="submit" className="btn btn-primary">
             Login
           </button>
         </div>
+        <div style={{ marginTop: '10px', fontSize: '14px',textAlign:'center' }}>
+        <Link to="/forgot-password" style={{ color: '#007bff', textDecoration: 'none' }}>
+          Forgot Password? Click Here
+        </Link>
+      </div>
       </form>
       <ToastContainer />
     </div>
