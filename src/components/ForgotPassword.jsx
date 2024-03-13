@@ -6,17 +6,21 @@ function ForgotPassword() {
   const [email, setEmail] = useState('');
   const [error, setError] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      setIsLoading(true);
       const response = await axios.post('https://markdown-mern-backend.onrender.com/api/auth/forgot-password', { email });
       setSuccessMessage(response.data.message);
       console.log(response);
       setEmail('');
       setError('');
+      setIsLoading(false);
     } catch (error) {
       setError('Password reset request failed. Please try again.');
+      setIsLoading(false);
     }
   };
 
@@ -41,7 +45,7 @@ function ForgotPassword() {
         </div>
         <div>
           <button type="submit" className="btn btn-primary_f">
-            Reset Password
+            {isLoading?'Sending Reset Mail...':'Send Reset Mail'}
           </button>
         </div>
       </form>

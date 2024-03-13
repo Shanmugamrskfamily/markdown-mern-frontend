@@ -11,6 +11,7 @@ function ResetPassword() {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const token = searchParams.get('token');
+  const [isLoading, setIsLoading] = useState(false);
 
   const showToastMessage = (message, type) => {
     toast[type](message, {
@@ -21,6 +22,7 @@ function ResetPassword() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      setIsLoading(true);
       if (password !== confirmPassword) {
         showToastMessage('Passwords do not match', 'error');
         return;
@@ -33,13 +35,16 @@ function ResetPassword() {
 
       if (response.status === 200) {
         showToastMessage('Password reset successful. Please login.', 'success');
+        setIsLoading(false);
         setTimeout(() => {
+          setIsLoading(false);
           navigate('/login');
         }, 2000);
       }
     } catch (error) {
       console.error('Error resetting password:', error);
       showToastMessage('Password reset failed. Please try again.', 'error');
+      setIsLoading(false);
     }
   };
 

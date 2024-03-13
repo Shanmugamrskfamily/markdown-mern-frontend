@@ -15,12 +15,12 @@ function Register() {
   };
 
   const [formData, setFormData] = useState(initialFormData);
+  const [isLoading, setIsLoading] = useState(false); // State to manage loading animation
 
   const [isUsernameValid, setIsUsernameValid] = useState(true);
   const [isPasswordValid, setIsPasswordValid] = useState(true);
   const [isEmailValid, setIsEmailValid] = useState(true);
   const [isMobileValid, setIsMobileValid] = useState(true);
-  // const [message, setMessage] = useState('');
 
   const showToastMessage = (message, type) => {
     toast[type](message, {
@@ -57,6 +57,8 @@ function Register() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      setIsLoading(true); // Start loading animation
+
       if (
         formData.username.trim() !== '' &&
         formData.password.trim() !== '' &&
@@ -67,21 +69,13 @@ function Register() {
         isEmailValid &&
         isMobileValid
       ) {
-      
-       const response = await axios.post('https://markdown-mern-backend.onrender.com/api/auth/register', formData)
-       .catch(error => {
-        if (error.response) {
-          console.log(error.response.data); 
-        }
-    
-      })
-       
+        const response = await axios.post('https://markdown-mern-backend.onrender.com/api/auth/register', formData);
 
         setFormData(initialFormData);
-        
+
         setTimeout(() => {
           navigate('/login');
-        },2000 );
+        }, 2000);
         showToastMessage('Registration Successful.. check your mail for Account Activation!', 'success');
       } else {
         showToastMessage('Please fill in all required fields', 'error');
@@ -89,80 +83,94 @@ function Register() {
     } catch (error) {
       console.error('Error registering:', error);
       showToastMessage('Registration failed. Please try again.', 'error');
+    } finally {
+      setIsLoading(false); // Stop loading animation
     }
   };
 
   return (
     <main>
-    <div className="container" style={{ width: 300 }}>
-      <h1>R <span style={{color:"red"}}>E</span> <span style={{color:"blue"}}>G</span> <span style={{color:"green"}}>I</span> <span style={{color:"yellow"}}>S</span>
-       <span style={{color:"pink"}}>T</span> <span style={{color:"orange"}}>E</span> <span style={{color:"neon"}}>R</span></h1>
-       <hr />
-      <form onSubmit={handleSubmit}>
-        <div className="form-group">
-          <label htmlFor="username" className='title'>Username</label>
-          <input
-            type="text"
-            className="form-control"
-            id="username"
-            name="name"
-            value={formData.username}
-            onChange={handleName}
-          />
-        </div>
-        {!isUsernameValid && <div className="error">Please enter a username.</div>}
+      <div className="container" style={{ width: 300 }}>
+        <h1>
+          R <span style={{ color: 'red' }}>E</span> <span style={{ color: 'blue' }}>G</span>{' '}
+          <span style={{ color: 'green' }}>I</span> <span style={{ color: 'yellow' }}>S</span>{' '}
+          <span style={{ color: 'pink' }}>T</span> <span style={{ color: 'orange' }}>E</span>{' '}
+          <span style={{ color: 'neon' }}>R</span>
+        </h1>
+        <hr />
+        <form onSubmit={handleSubmit}>
+          <div className="form-group">
+            <label htmlFor="username" className="title">
+              Username
+            </label>
+            <input
+              type="text"
+              className="form-control"
+              id="username"
+              name="name"
+              value={formData.username}
+              onChange={handleName}
+            />
+          </div>
+          {!isUsernameValid && <div className="error">Please enter a username.</div>}
 
-        <div className="form-group">
-          <label htmlFor="password" className='title'>Password</label>
-          <input
-            type="password"
-            className="form-control"
-            id="password"
-            name="password"
-            value={formData.password}
-            onChange={handlePassword}
-          />
-        </div>
-        {!isPasswordValid && (
-          <div className="error">Please enter a valid password (at least 6 characters).</div>
-        )}
+          <div className="form-group">
+            <label htmlFor="password" className="title">
+              Password
+            </label>
+            <input
+              type="password"
+              className="form-control"
+              id="password"
+              name="password"
+              value={formData.password}
+              onChange={handlePassword}
+            />
+          </div>
+          {!isPasswordValid && (
+            <div className="error">Please enter a valid password (at least 6 characters).</div>
+          )}
 
-        <div className="form-group">
-          <label htmlFor="email" className='title'>Email</label>
-          <input
-            type="email"
-            className="form-control"
-            id="email"
-            name="email"
-            value={formData.email}
-            onChange={handleEmail}
-          />
-        </div>
-        {!isEmailValid && <div className="error">Please enter a valid email address.</div>}
+          <div className="form-group">
+            <label htmlFor="email" className="title">
+              Email
+            </label>
+            <input
+              type="email"
+              className="form-control"
+              id="email"
+              name="email"
+              value={formData.email}
+              onChange={handleEmail}
+            />
+          </div>
+          {!isEmailValid && <div className="error">Please enter a valid email address.</div>}
 
-        <div className="form-group">
-          <label htmlFor="mobile"className='title'>Mobile Number</label>
-          <input
-            type="text"
-            className="form-control"
-            id="mobile"
-            name="mobile"
-            value={formData.mobile}
-            onChange={handleMobile}
-          />
-        </div>
-        {!isMobileValid && (
-          <div className="error">Please enter a valid mobile number (10 digits).</div>
-        )}
+          <div className="form-group">
+            <label htmlFor="mobile" className="title">
+              Mobile Number
+            </label>
+            <input
+              type="text"
+              className="form-control"
+              id="mobile"
+              name="mobile"
+              value={formData.mobile}
+              onChange={handleMobile}
+            />
+          </div>
+          {!isMobileValid && (
+            <div className="error">Please enter a valid mobile number (10 digits).</div>
+          )}
 
-        <div>
-          <button type="submit" className="btn btn-primary">
-            Register
-          </button>
-        </div>
-      </form>
-      <ToastContainer />
-    </div>
+          <div>
+            <button type="submit" className="btn btn-primary">
+              {isLoading ? 'Registering...' : 'Register'}
+            </button>
+          </div>
+        </form>
+        <ToastContainer />
+      </div>
     </main>
   );
 }

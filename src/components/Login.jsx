@@ -15,6 +15,7 @@ function Login({ setIsLoggedIn }) {
   const [formData, setFormData] = useState(initialFormData);
   const [isPasswordValid, setIsPasswordValid] = useState(true);
   const [isEmailValid, setIsEmailValid] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
 
   const showToastMessage = (message, type) => {
     toast[type](message, {
@@ -38,6 +39,7 @@ function Login({ setIsLoggedIn }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      setIsLoading(true);
       if(
         formData.email.trim() !== '' &&
         formData.password.trim() !== '' &&
@@ -55,15 +57,18 @@ function Login({ setIsLoggedIn }) {
         setTimeout(() => {
           setIsLoggedIn(true);
           navigate('/create');
+          setIsLoading(flase);
         }, 2000);
         showToastMessage('Login successful', 'success');
 
       }else {
         showToastMessage('Please fill in all required fields', 'error');
+        setIsLoading(flase);
       }
      } catch (error) {
       console.error('Error logging in:', error);
       showToastMessage('Invalid Email or password', 'error');
+      setIsLoading(flase);
     }
   };
 
@@ -102,7 +107,7 @@ function Login({ setIsLoggedIn }) {
 
         <div style={{textAlign:'center'}}>
           <button type="submit" className="btn btn-primary">
-            Login
+          {isLoading ? 'Loging in...' : 'Login'}
           </button>
         </div>
         <div style={{ marginTop: '10px', fontSize: '14px',textAlign:'center' }}>
