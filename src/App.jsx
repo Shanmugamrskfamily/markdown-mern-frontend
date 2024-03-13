@@ -13,6 +13,7 @@ import './chartConfig'
 import ActivateAccount from './components/ActivateAccount';
 import ForgotPassword from './components/ForgotPassword';
 import ResetPassword from './components/ResetPassword';
+import NotFound from './components/NotFound';
 
 
 
@@ -55,6 +56,7 @@ function App() {
           <Route path="/login" element={<Login setIsLoggedIn={setIsLoggedIn} />} />
           <Route path="/forgot-password" element={<ForgotPassword/>} />
           <Route path="/chart" element={<Chart/>}></Route>
+          <Route path="*" element={<NotFound/>}></Route>
         </Routes>
       </Router>
     </div>
