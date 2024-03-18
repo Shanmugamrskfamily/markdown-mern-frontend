@@ -64,7 +64,7 @@ function Login({ setIsLoggedIn }) {
       }
     } catch (error) {
       console.error('Error logging in:', error);
-      showToastMessage('Invalid Email or password', 'error');
+      showToastMessage(`${error.response.data.message}`, 'error');
       setIsLoading(false);
     }
   };
@@ -98,7 +98,7 @@ function Login({ setIsLoggedIn }) {
       showToastMessage('Login successful', 'success');
     } catch (error) {
       console.error('Error logging in:', error);
-      showToastMessage('Invalid Email or password', 'error');
+      showToastMessage(`${error}`);
       setIsLoading(false);
     }
   };
